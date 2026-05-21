@@ -1051,76 +1051,248 @@ footer{background:var(--forest-deep);padding:56px 40px 28px}
   <div class="admin-layout">
     <div class="admin-sidebar">
       <div class="admin-brand"><div style="display:flex;align-items:center;gap:10px"><div class="logo-mark" style="width:30px;height:30px;font-size:13px">S</div><div class="logo-text" style="font-size:18px">SAVARI</div></div><div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:4px">Admin Dashboard</div></div>
-      <div class="admin-nav-item active" onclick="setAdminNav(this)">📊 Overview</div>
-      <div class="admin-nav-item" onclick="setAdminNav(this)">📦 All Orders</div>
-      <div class="admin-nav-item" onclick="setAdminNav(this)">✂️ Tailors</div>
-      <div class="admin-nav-item" onclick="setAdminNav(this)">👤 Customers</div>
-      <div class="admin-nav-item" onclick="setAdminNav(this)">🗂 Catalog</div>
-      <div class="admin-nav-item" onclick="setAdminNav(this)">💳 Payments</div>
-      <div class="admin-nav-item" onclick="setAdminNav(this)">🚚 Shipping</div>
-      <div class="admin-nav-item" onclick="setAdminNav(this)">💬 Support</div>
-      <div class="admin-nav-item" onclick="setAdminNav(this)">📈 Reports</div>
-      <div class="admin-nav-item" onclick="setAdminNav(this)">⚙️ Settings</div>
+      <div class="admin-nav-item active" onclick="setAdminNav(this,'admin-overview')">📊 Overview</div>
+      <div class="admin-nav-item" onclick="setAdminNav(this,'admin-orders')">📦 All Orders</div>
+      <div class="admin-nav-item" onclick="setAdminNav(this,'admin-tailors')">✂️ Tailors</div>
+      <div class="admin-nav-item" onclick="setAdminNav(this,'admin-customers')">👤 Customers</div>
+      <div class="admin-nav-item" onclick="setAdminNav(this,'admin-catalog')">🗂 Catalog</div>
+      <div class="admin-nav-item" onclick="setAdminNav(this,'admin-payments')">💳 Payments</div>
+      <div class="admin-nav-item" onclick="setAdminNav(this,'admin-shipping')">🚚 Shipping</div>
+      <div class="admin-nav-item" onclick="setAdminNav(this,'admin-support')">💬 Support</div>
+      <div class="admin-nav-item" onclick="setAdminNav(this,'admin-reports')">📈 Reports</div>
+      <div class="admin-nav-item" onclick="setAdminNav(this,'admin-settings')">⚙️ Settings</div>
     </div>
-    <div class="admin-main">
-      <div class="admin-page-title">Dashboard Overview</div>
-      <div class="admin-page-sub">Welcome back. Here's what's happening on Savari today.</div>
-      <div class="metrics-row">
-        <div class="metric-card"><div class="metric-num">$42,810</div><div class="metric-lbl">Revenue (May)</div><div class="metric-delta">↑ 18% vs last month</div></div>
-        <div class="metric-card"><div class="metric-num">284</div><div class="metric-lbl">Active Orders</div><div class="metric-delta">↑ 24 new today</div></div>
-        <div class="metric-card"><div class="metric-num">8,412</div><div class="metric-lbl">Total Customers</div><div class="metric-delta">↑ 142 this week</div></div>
-        <div class="metric-card"><div class="metric-num">4.89★</div><div class="metric-lbl">Platform Rating</div><div class="metric-delta">↑ Stable</div></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px">
-        <div class="metric-card" style="background:var(--gold-lt);border-color:rgba(200,146,42,.3)">
-          <div style="font-size:12px;font-weight:700;color:var(--gold-dk);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px">⚠️ Needs Attention</div>
-          <div style="font-size:14px;color:var(--gold-dk);line-height:1.8">• 5 orders: measurement clarification required<br>• 2 orders: overdue shipping update<br>• 3 new tailor applications pending review<br>• 1 customer dispute open</div>
+    <div class="admin-main" id="admin-main-wrap">
+
+      <!-- OVERVIEW -->
+      <div id="admin-overview" class="admin-panel">
+        <div class="admin-page-title">Dashboard Overview</div>
+        <div class="admin-page-sub">Welcome back. Here's what's happening on Savari today.</div>
+        <div class="metrics-row">
+          <div class="metric-card"><div class="metric-num">$42,810</div><div class="metric-lbl">Revenue (May)</div><div class="metric-delta">↑ 18% vs last month</div></div>
+          <div class="metric-card"><div class="metric-num">284</div><div class="metric-lbl">Active Orders</div><div class="metric-delta">↑ 24 new today</div></div>
+          <div class="metric-card"><div class="metric-num">8,412</div><div class="metric-lbl">Total Customers</div><div class="metric-delta">↑ 142 this week</div></div>
+          <div class="metric-card"><div class="metric-num">4.89★</div><div class="metric-lbl">Platform Rating</div><div class="metric-delta">↑ Stable</div></div>
         </div>
-        <div class="metric-card" style="background:var(--forest-faint);border-color:rgba(26,58,42,.2)">
-          <div style="font-size:12px;font-weight:700;color:var(--forest);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px">💳 Payment Status</div>
-          <div style="font-size:14px;color:var(--forest);line-height:1.8">• $38,240 in pending payments<br>• $4,570 released this week<br>• 12 release requests pending<br>• 0 failed payments</div>
-        </div>
-      </div>
-      <div class="admin-table-wrap">
-        <div class="admin-table-hdr">
-          <div class="admin-table-title">Recent Orders</div>
-          <div style="display:flex;gap:10px">
-            <div class="select-wrap"><select style="padding:8px 32px 8px 12px;font-size:13px"><option>All Status</option><option>In Production</option><option>Shipped</option><option>Needs Review</option><option>Delivered</option></select></div>
-            <button class="btn btn-outline btn-sm">Export CSV</button>
-            <button class="btn btn-gold btn-sm" onclick="toast('New Order','Opening manual order form...')">+ New Order</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px">
+          <div class="metric-card" style="background:var(--gold-lt);border-color:rgba(200,146,42,.3)">
+            <div style="font-size:12px;font-weight:700;color:var(--gold-dk);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px">⚠️ Needs Attention</div>
+            <div style="font-size:14px;color:var(--gold-dk);line-height:1.8">• 5 orders: measurement clarification required<br>• 2 orders: overdue shipping update<br>• 3 new tailor applications pending review<br>• 1 customer dispute open</div>
+          </div>
+          <div class="metric-card" style="background:var(--forest-faint);border-color:rgba(26,58,42,.2)">
+            <div style="font-size:12px;font-weight:700;color:var(--forest);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px">💳 Payment Status</div>
+            <div style="font-size:14px;color:var(--forest);line-height:1.8">• $38,240 in pending payments<br>• $4,570 released this week<br>• 12 release requests pending<br>• 0 failed payments</div>
           </div>
         </div>
-        <div style="overflow-x:auto">
-          <table>
+        <div class="admin-table-wrap">
+          <div class="admin-table-hdr"><div class="admin-table-title">Recent Orders</div><div style="display:flex;gap:10px"><div class="select-wrap"><select style="padding:8px 32px 8px 12px;font-size:13px"><option>All Status</option><option>In Production</option><option>Shipped</option><option>Needs Review</option><option>Delivered</option></select></div><button class="btn btn-gold btn-sm" onclick="setAdminNav(document.querySelector('[onclick*=admin-orders]'),'admin-orders')">View All Orders</button></div></div>
+          <div style="overflow-x:auto"><table>
             <tr><th>Order #</th><th>Customer</th><th>Outfit</th><th>Tailor</th><th>Status</th><th>Value</th><th>Action</th></tr>
-            <tr>
-              <td><strong>#SAV-2851</strong></td><td>Chidi Okonkwo</td><td>Safari Suit</td><td>Adebayo O.</td>
-              <td><span class="status-badge s-review" style="font-size:12px;padding:4px 11px">Meas. Review</span></td>
-              <td>$204</td><td><button class="btn btn-outline btn-sm" onclick="toast('Review','Reviewing measurements for #SAV-2851...')">Review</button></td>
-            </tr>
-            <tr>
-              <td><strong>#SAV-2850</strong></td><td>Amara Eze</td><td>Ankara Dress</td><td>Fatima M.</td>
-              <td><span class="status-badge s-production" style="font-size:12px;padding:4px 11px">In Production</span></td>
-              <td>$118</td><td><button class="btn btn-outline btn-sm" onclick="toast('Update','Updating status for #SAV-2850...')">Update</button></td>
-            </tr>
-            <tr>
-              <td><strong>#SAV-2847</strong></td><td>David Adeyemi</td><td>Safari Suit</td><td>Adebayo O.</td>
-              <td><span class="status-badge s-production" style="font-size:12px;padding:4px 11px">In Production</span></td>
-              <td>$213</td><td><button class="btn btn-outline btn-sm" onclick="toast('Update','Opening order #SAV-2847...')">Update</button></td>
-            </tr>
-            <tr>
-              <td><strong>#SAV-2839</strong></td><td>Blessing Nwosu</td><td>Agbada Set</td><td>Emeka I.</td>
-              <td><span class="status-badge s-shipped" style="font-size:12px;padding:4px 11px">Shipped</span></td>
-              <td>$298</td><td><button class="btn btn-outline btn-sm" onclick="toast('Tracking','DHL tracking: 7482920184')">Track</button></td>
-            </tr>
-            <tr>
-              <td><strong>#SAV-2821</strong></td><td>Kemi Olatunde</td><td>Bridal Lace</td><td>Fatima M.</td>
-              <td><span class="status-badge s-delivered" style="font-size:12px;padding:4px 11px">Delivered</span></td>
-              <td>$410</td><td><button class="btn btn-gold btn-sm" onclick="toast('Payment Released','Payment of $410 released to Fatima Mohammed.')">Release Payment</button></td>
-            </tr>
-          </table>
+            <tr><td><strong>#SAV-2851</strong></td><td>Chidi Okonkwo</td><td>Safari Suit</td><td>Adebayo O.</td><td><span class="status-badge s-review" style="font-size:12px;padding:4px 11px">Meas. Review</span></td><td>$204</td><td><button class="btn btn-outline btn-sm" onclick="toast('Review','Reviewing measurements for #SAV-2851...')">Review</button></td></tr>
+            <tr><td><strong>#SAV-2850</strong></td><td>Amara Eze</td><td>Ankara Dress</td><td>Fatima M.</td><td><span class="status-badge s-production" style="font-size:12px;padding:4px 11px">In Production</span></td><td>$118</td><td><button class="btn btn-outline btn-sm" onclick="toast('Update','Updating #SAV-2850...')">Update</button></td></tr>
+            <tr><td><strong>#SAV-2847</strong></td><td>David Adeyemi</td><td>Safari Suit</td><td>Adebayo O.</td><td><span class="status-badge s-production" style="font-size:12px;padding:4px 11px">In Production</span></td><td>$213</td><td><button class="btn btn-outline btn-sm" onclick="toast('Update','Opening #SAV-2847...')">Update</button></td></tr>
+            <tr><td><strong>#SAV-2839</strong></td><td>Blessing Nwosu</td><td>Agbada Set</td><td>Emeka I.</td><td><span class="status-badge s-shipped" style="font-size:12px;padding:4px 11px">Shipped</span></td><td>$298</td><td><button class="btn btn-outline btn-sm" onclick="toast('Tracking','DHL: 7482920184')">Track</button></td></tr>
+            <tr><td><strong>#SAV-2821</strong></td><td>Kemi Olatunde</td><td>Bridal Lace</td><td>Fatima M.</td><td><span class="status-badge s-delivered" style="font-size:12px;padding:4px 11px">Delivered</span></td><td>$410</td><td><button class="btn btn-gold btn-sm" onclick="toast('Payment Released','$410 released to Fatima Mohammed.')">Release Payment</button></td></tr>
+          </table></div>
         </div>
       </div>
+
+      <!-- ALL ORDERS -->
+      <div id="admin-orders" class="admin-panel" style="display:none">
+        <div class="admin-page-title">All Orders</div>
+        <div class="admin-page-sub">Manage, filter, and update every order on the platform.</div>
+        <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+          <div class="select-wrap" style="flex:1;min-width:140px"><select><option>All Status</option><option>Order Received</option><option>Payment Confirmed</option><option>Measurement Review</option><option>In Production</option><option>Quality Check</option><option>Shipped</option><option>Delivered</option><option>Cancelled</option></select></div>
+          <div class="select-wrap" style="flex:1;min-width:140px"><select><option>All Tailors</option><option>Adebayo Okafor</option><option>Fatima Mohammed</option><option>Emeka Igwe</option><option>Toyin Adewale</option></select></div>
+          <input type="text" placeholder="Search order # or customer..." style="flex:2;min-width:180px;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:14px">
+          <button class="btn btn-gold btn-sm">Search</button>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-hdr"><div class="admin-table-title">284 Active Orders</div><button class="btn btn-outline btn-sm">Export CSV</button></div>
+          <div style="overflow-x:auto"><table>
+            <tr><th>Order #</th><th>Customer</th><th>Outfit</th><th>Tailor</th><th>Status</th><th>Value</th><th>Date</th><th>Action</th></tr>
+            <tr><td><strong>#SAV-2851</strong></td><td>Chidi Okonkwo</td><td>Safari Suit</td><td>Adebayo O.</td><td><span class="status-badge s-review" style="font-size:12px;padding:4px 11px">Meas. Review</span></td><td>$204</td><td>May 21</td><td><button class="btn btn-outline btn-sm" onclick="toast('Review','Opening measurement review for #SAV-2851')">Review</button></td></tr>
+            <tr><td><strong>#SAV-2850</strong></td><td>Amara Eze</td><td>Ankara Dress</td><td>Fatima M.</td><td><span class="status-badge s-production" style="font-size:12px;padding:4px 11px">In Production</span></td><td>$118</td><td>May 20</td><td><button class="btn btn-outline btn-sm" onclick="toast('Update','Updating #SAV-2850')">Update</button></td></tr>
+            <tr><td><strong>#SAV-2847</strong></td><td>David Adeyemi</td><td>Safari Suit</td><td>Adebayo O.</td><td><span class="status-badge s-production" style="font-size:12px;padding:4px 11px">In Production</span></td><td>$213</td><td>May 19</td><td><button class="btn btn-outline btn-sm" onclick="toast('Update','Opening #SAV-2847')">Update</button></td></tr>
+            <tr><td><strong>#SAV-2839</strong></td><td>Blessing Nwosu</td><td>Agbada Set</td><td>Emeka I.</td><td><span class="status-badge s-shipped" style="font-size:12px;padding:4px 11px">Shipped</span></td><td>$298</td><td>May 15</td><td><button class="btn btn-outline btn-sm" onclick="toast('Tracking','DHL: 7482920184')">Track</button></td></tr>
+            <tr><td><strong>#SAV-2821</strong></td><td>Kemi Olatunde</td><td>Bridal Lace</td><td>Fatima M.</td><td><span class="status-badge s-delivered" style="font-size:12px;padding:4px 11px">Delivered</span></td><td>$410</td><td>May 10</td><td><button class="btn btn-gold btn-sm" onclick="toast('Payment Released','$410 released to Fatima Mohammed.')">Release Payment</button></td></tr>
+            <tr><td><strong>#SAV-2810</strong></td><td>Tunde Bakare</td><td>Kaftan</td><td>Emeka I.</td><td><span class="status-badge s-delivered" style="font-size:12px;padding:4px 11px">Delivered</span></td><td>$145</td><td>May 8</td><td><button class="btn btn-outline btn-sm" onclick="toast('Complete','Order #SAV-2810 completed.')">Complete</button></td></tr>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- TAILORS -->
+      <div id="admin-tailors" class="admin-panel" style="display:none">
+        <div class="admin-page-title">Tailors</div>
+        <div class="admin-page-sub">Manage verified tailors, review applications, and monitor performance.</div>
+        <div class="metrics-row" style="grid-template-columns:repeat(3,1fr)">
+          <div class="metric-card"><div class="metric-num">240</div><div class="metric-lbl">Verified Tailors</div><div class="metric-delta">↑ 3 new this month</div></div>
+          <div class="metric-card"><div class="metric-num">3</div><div class="metric-lbl">Applications Pending</div><div class="metric-delta" style="color:var(--rust)">Needs review</div></div>
+          <div class="metric-card"><div class="metric-num">4.89★</div><div class="metric-lbl">Avg Tailor Rating</div><div class="metric-delta">↑ Stable</div></div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-hdr"><div class="admin-table-title">Active Tailors</div><button class="btn btn-gold btn-sm" onclick="toast('Applications','Opening 3 pending tailor applications...')">Review Applications (3)</button></div>
+          <div style="overflow-x:auto"><table>
+            <tr><th>Tailor</th><th>Location</th><th>Speciality</th><th>Rating</th><th>Orders</th><th>Pending Pay</th><th>Status</th><th>Action</th></tr>
+            <tr><td><strong>Adebayo Okafor</strong></td><td>Lagos</td><td>Safari, Senator</td><td>★ 5.0</td><td>284</td><td>$2,140</td><td><span class="pill-green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="toast('Profile','Opening Adebayo Okafor profile...')">View</button></td></tr>
+            <tr><td><strong>Fatima Mohammed</strong></td><td>Abuja</td><td>Lace, Ankara, Bridal</td><td>★ 4.9</td><td>176</td><td>$1,870</td><td><span class="pill-green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="toast('Profile','Opening Fatima Mohammed profile...')">View</button></td></tr>
+            <tr><td><strong>Emeka Igwe</strong></td><td>Enugu</td><td>Kaftan, Boubou</td><td>★ 4.8</td><td>87</td><td>$960</td><td><span class="pill-green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="toast('Profile','Opening Emeka Igwe profile...')">View</button></td></tr>
+            <tr><td><strong>Toyin Adewale</strong></td><td>Ibadan</td><td>Ankara, Dashiki</td><td>★ 4.9</td><td>128</td><td>$1,100</td><td><span class="pill-green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="toast('Profile','Opening Toyin Adewale profile...')">View</button></td></tr>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- CUSTOMERS -->
+      <div id="admin-customers" class="admin-panel" style="display:none">
+        <div class="admin-page-title">Customers</div>
+        <div class="admin-page-sub">View and manage registered customers across all regions.</div>
+        <div class="metrics-row" style="grid-template-columns:repeat(3,1fr)">
+          <div class="metric-card"><div class="metric-num">8,412</div><div class="metric-lbl">Total Customers</div><div class="metric-delta">↑ 142 this week</div></div>
+          <div class="metric-card"><div class="metric-num">3,210</div><div class="metric-lbl">Canada</div><div class="metric-delta">38% of base</div></div>
+          <div class="metric-card"><div class="metric-num">2,890</div><div class="metric-lbl">United States</div><div class="metric-delta">34% of base</div></div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-hdr"><div class="admin-table-title">Recent Customers</div><input type="text" placeholder="Search by name or email..." style="padding:8px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif"></div>
+          <div style="overflow-x:auto"><table>
+            <tr><th>Name</th><th>Email</th><th>Country</th><th>Orders</th><th>Total Spent</th><th>Joined</th><th>Action</th></tr>
+            <tr><td><strong>David Adeyemi</strong></td><td>david@email.com</td><td>🇨🇦 Canada</td><td>3</td><td>$589</td><td>Jan 2025</td><td><button class="btn btn-outline btn-sm" onclick="toast('Customer','Opening David Adeyemi profile...')">View</button></td></tr>
+            <tr><td><strong>Chidi Okonkwo</strong></td><td>chidi@email.com</td><td>🇨🇦 Canada</td><td>1</td><td>$204</td><td>May 2025</td><td><button class="btn btn-outline btn-sm" onclick="toast('Customer','Opening Chidi Okonkwo profile...')">View</button></td></tr>
+            <tr><td><strong>Kemi Olatunde</strong></td><td>kemi@email.com</td><td>🇺🇸 USA</td><td>2</td><td>$614</td><td>Feb 2025</td><td><button class="btn btn-outline btn-sm" onclick="toast('Customer','Opening Kemi Olatunde profile...')">View</button></td></tr>
+            <tr><td><strong>Amara Eze</strong></td><td>amara@email.com</td><td>🇬🇧 UK</td><td>1</td><td>$118</td><td>Apr 2025</td><td><button class="btn btn-outline btn-sm" onclick="toast('Customer','Opening Amara Eze profile...')">View</button></td></tr>
+            <tr><td><strong>Blessing Nwosu</strong></td><td>blessing@email.com</td><td>🇺🇸 USA</td><td>2</td><td>$442</td><td>Mar 2025</td><td><button class="btn btn-outline btn-sm" onclick="toast('Customer','Opening Blessing Nwosu profile...')">View</button></td></tr>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- CATALOG -->
+      <div id="admin-catalog" class="admin-panel" style="display:none">
+        <div class="admin-page-title">Catalog Management</div>
+        <div class="admin-page-sub">Add, edit, or remove outfit listings from the catalog.</div>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:20px"><button class="btn btn-gold" onclick="toast('New Listing','Opening add product form...')">+ Add New Listing</button></div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-hdr"><div class="admin-table-title">Active Listings</div></div>
+          <div style="overflow-x:auto"><table>
+            <tr><th>Product</th><th>Category</th><th>Starting Price</th><th>Lead Time</th><th>Orders</th><th>Status</th><th>Action</th></tr>
+            <tr><td><strong>Classic 3-Piece Safari Suit</strong></td><td>Safari Suit</td><td>$185</td><td>14–21 days</td><td>312</td><td><span class="pill-green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="toast('Edit','Opening editor for Safari Suit...')">Edit</button></td></tr>
+            <tr><td><strong>Royal Embroidered Kaftan</strong></td><td>Kaftan</td><td>$130</td><td>10–18 days</td><td>198</td><td><span class="pill-green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="toast('Edit','Opening editor for Kaftan...')">Edit</button></td></tr>
+            <tr><td><strong>Grand Ceremony Agbada Set</strong></td><td>Agbada</td><td>$260</td><td>18–28 days</td><td>94</td><td><span class="pill-green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="toast('Edit','Opening editor for Agbada...')">Edit</button></td></tr>
+            <tr><td><strong>Bold Print Ankara Ensemble</strong></td><td>Ankara</td><td>$95</td><td>7–14 days</td><td>141</td><td><span class="pill-green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="toast('Edit','Opening editor for Ankara...')">Edit</button></td></tr>
+            <tr><td><strong>Aso-Oke Bridal Collection</strong></td><td>Wedding</td><td>$380</td><td>21–35 days</td><td>47</td><td><span class="pill-green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="toast('Edit','Opening editor for Bridal...')">Edit</button></td></tr>
+            <tr><td><strong>Couples & Family Aso-Ebi Set</strong></td><td>Family Matching</td><td>$155</td><td>14–21 days</td><td>87</td><td><span class="pill-green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="toast('Edit','Opening editor for Family Set...')">Edit</button></td></tr>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- PAYMENTS -->
+      <div id="admin-payments" class="admin-panel" style="display:none">
+        <div class="admin-page-title">Payments</div>
+        <div class="admin-page-sub">Review pending payments, release funds, and track transaction history.</div>
+        <div class="metrics-row">
+          <div class="metric-card"><div class="metric-num">$38,240</div><div class="metric-lbl">Pending Release</div><div class="metric-delta">12 orders awaiting</div></div>
+          <div class="metric-card"><div class="metric-num">$4,570</div><div class="metric-lbl">Released This Week</div><div class="metric-delta">↑ 8 transactions</div></div>
+          <div class="metric-card"><div class="metric-num">$42,810</div><div class="metric-lbl">Total Revenue (May)</div><div class="metric-delta">↑ 18% vs April</div></div>
+          <div class="metric-card"><div class="metric-num">0</div><div class="metric-lbl">Failed Payments</div><div class="metric-delta" style="color:var(--forest)">All clear ✓</div></div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-hdr"><div class="admin-table-title">Pending Payment Releases</div></div>
+          <div style="overflow-x:auto"><table>
+            <tr><th>Order #</th><th>Customer</th><th>Tailor</th><th>Amount</th><th>Delivered</th><th>Action</th></tr>
+            <tr><td><strong>#SAV-2821</strong></td><td>Kemi Olatunde</td><td>Fatima Mohammed</td><td>$410</td><td>May 18</td><td><button class="btn btn-gold btn-sm" onclick="toast('Released','$410 released to Fatima Mohammed.')">Release $410</button></td></tr>
+            <tr><td><strong>#SAV-2810</strong></td><td>Tunde Bakare</td><td>Emeka Igwe</td><td>$145</td><td>May 17</td><td><button class="btn btn-gold btn-sm" onclick="toast('Released','$145 released to Emeka Igwe.')">Release $145</button></td></tr>
+            <tr><td><strong>#SAV-2798</strong></td><td>Ngozi Williams</td><td>Adebayo Okafor</td><td>$228</td><td>May 14</td><td><button class="btn btn-gold btn-sm" onclick="toast('Released','$228 released to Adebayo Okafor.')">Release $228</button></td></tr>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- SHIPPING -->
+      <div id="admin-shipping" class="admin-panel" style="display:none">
+        <div class="admin-page-title">Shipping</div>
+        <div class="admin-page-sub">Track all shipments, update tracking numbers, and manage delivery status.</div>
+        <div class="metrics-row" style="grid-template-columns:repeat(3,1fr)">
+          <div class="metric-card"><div class="metric-num">42</div><div class="metric-lbl">In Transit</div><div class="metric-delta">Across 18 countries</div></div>
+          <div class="metric-card"><div class="metric-num">2</div><div class="metric-lbl">Overdue Updates</div><div class="metric-delta" style="color:var(--rust)">Needs action</div></div>
+          <div class="metric-card"><div class="metric-num">98.2%</div><div class="metric-lbl">On-Time Delivery Rate</div><div class="metric-delta">↑ vs 96.8% last month</div></div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-hdr"><div class="admin-table-title">Active Shipments</div></div>
+          <div style="overflow-x:auto"><table>
+            <tr><th>Order #</th><th>Customer</th><th>Destination</th><th>Carrier</th><th>Tracking #</th><th>Est. Delivery</th><th>Status</th></tr>
+            <tr><td><strong>#SAV-2839</strong></td><td>Blessing Nwosu</td><td>New York, USA</td><td>DHL</td><td>7482920184</td><td>May 24</td><td><span class="pill-amber">In Transit</span></td></tr>
+            <tr><td><strong>#SAV-2835</strong></td><td>Rotimi Ade</td><td>Toronto, Canada</td><td>FedEx</td><td>9201847562</td><td>May 22</td><td><span class="pill-amber">In Transit</span></td></tr>
+            <tr><td><strong>#SAV-2821</strong></td><td>Kemi Olatunde</td><td>Houston, USA</td><td>DHL</td><td>7481029384</td><td>May 18</td><td><span class="pill-green">Delivered</span></td></tr>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- SUPPORT -->
+      <div id="admin-support" class="admin-panel" style="display:none">
+        <div class="admin-page-title">Customer Support</div>
+        <div class="admin-page-sub">Manage open conversations, disputes, and customer queries.</div>
+        <div class="metrics-row" style="grid-template-columns:repeat(3,1fr)">
+          <div class="metric-card"><div class="metric-num">7</div><div class="metric-lbl">Open Tickets</div><div class="metric-delta" style="color:var(--rust)">2 urgent</div></div>
+          <div class="metric-card"><div class="metric-num">1</div><div class="metric-lbl">Active Disputes</div><div class="metric-delta" style="color:var(--rust)">Needs resolution</div></div>
+          <div class="metric-card"><div class="metric-num">3.2 hrs</div><div class="metric-lbl">Avg Response Time</div><div class="metric-delta">↓ vs 5.1 hrs last week</div></div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-hdr"><div class="admin-table-title">Open Support Tickets</div></div>
+          <div style="overflow-x:auto"><table>
+            <tr><th>Ticket</th><th>Customer</th><th>Subject</th><th>Priority</th><th>Opened</th><th>Action</th></tr>
+            <tr><td><strong>#TKT-441</strong></td><td>Amara Eze</td><td>Outfit colour different from order</td><td><span class="pill-red">Urgent</span></td><td>May 21</td><td><button class="btn btn-outline btn-sm" onclick="toast('Ticket','Opening ticket #TKT-441...')">Respond</button></td></tr>
+            <tr><td><strong>#TKT-438</strong></td><td>Chidi Okonkwo</td><td>Measurement clarification needed</td><td><span class="pill-amber">Medium</span></td><td>May 20</td><td><button class="btn btn-outline btn-sm" onclick="toast('Ticket','Opening ticket #TKT-438...')">Respond</button></td></tr>
+            <tr><td><strong>#TKT-435</strong></td><td>Tunde Bakare</td><td>Delivery delay enquiry</td><td><span class="pill-green">Low</span></td><td>May 19</td><td><button class="btn btn-outline btn-sm" onclick="toast('Ticket','Opening ticket #TKT-435...')">Respond</button></td></tr>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- REPORTS -->
+      <div id="admin-reports" class="admin-panel" style="display:none">
+        <div class="admin-page-title">Reports</div>
+        <div class="admin-page-sub">Revenue, order volume, and platform performance over time.</div>
+        <div class="metrics-row">
+          <div class="metric-card"><div class="metric-num">$42,810</div><div class="metric-lbl">May Revenue</div><div class="metric-delta">↑ 18% vs April</div></div>
+          <div class="metric-card"><div class="metric-num">$36,280</div><div class="metric-lbl">April Revenue</div><div class="metric-delta">↑ 11% vs March</div></div>
+          <div class="metric-card"><div class="metric-num">$32,640</div><div class="metric-lbl">March Revenue</div><div class="metric-delta">↑ 9% vs February</div></div>
+          <div class="metric-card"><div class="metric-num">$111,730</div><div class="metric-lbl">Q2 Total (to date)</div><div class="metric-delta">↑ 15% vs Q1</div></div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-hdr"><div class="admin-table-title">Top Performing Categories</div><button class="btn btn-outline btn-sm" onclick="toast('Export','Downloading full report CSV...')">Export Report</button></div>
+          <div style="overflow-x:auto"><table>
+            <tr><th>Category</th><th>Orders (May)</th><th>Revenue</th><th>Avg Order Value</th><th>Growth</th></tr>
+            <tr><td><strong>Safari Suits</strong></td><td>84</td><td>$15,540</td><td>$185</td><td><span class="pill-green">↑ 22%</span></td></tr>
+            <tr><td><strong>Agbada</strong></td><td>48</td><td>$12,480</td><td>$260</td><td><span class="pill-green">↑ 18%</span></td></tr>
+            <tr><td><strong>Wedding Attire</strong></td><td>22</td><td>$8,360</td><td>$380</td><td><span class="pill-green">↑ 31%</span></td></tr>
+            <tr><td><strong>Kaftans</strong></td><td>62</td><td>$8,060</td><td>$130</td><td><span class="pill-amber">↑ 8%</span></td></tr>
+            <tr><td><strong>Ankara</strong></td><td>68</td><td>$6,460</td><td>$95</td><td><span class="pill-green">↑ 14%</span></td></tr>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="admin-settings" class="admin-panel" style="display:none">
+        <div class="admin-page-title">Settings</div>
+        <div class="admin-page-sub">Configure platform settings, notifications, and business details.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          <div class="form-card">
+            <div class="form-title">Business Details</div>
+            <div class="form-group"><label>Business Name</label><input type="text" value="Savari"></div>
+            <div class="form-group"><label>Support Email</label><input type="email" value="support@savari.com"></div>
+            <div class="form-group"><label>Default Currency</label><div class="select-wrap"><select><option>USD — US Dollar</option><option>CAD — Canadian Dollar</option><option>GBP — British Pound</option></select></div></div>
+            <button class="btn btn-gold btn-sm" onclick="toast('Saved','Business details updated.')">Save Changes</button>
+          </div>
+          <div class="form-card">
+            <div class="form-title">Notifications</div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <label class="checkbox-row"><input type="checkbox" checked style="width:auto"> Email on new order</label>
+              <label class="checkbox-row"><input type="checkbox" checked style="width:auto"> Email on measurement flag</label>
+              <label class="checkbox-row"><input type="checkbox" checked style="width:auto"> Email on new support ticket</label>
+              <label class="checkbox-row"><input type="checkbox" style="width:auto"> SMS alerts for urgent issues</label>
+              <label class="checkbox-row"><input type="checkbox" checked style="width:auto"> Weekly revenue digest</label>
+            </div>
+            <button class="btn btn-gold btn-sm" style="margin-top:18px" onclick="toast('Saved','Notification preferences updated.')">Save Preferences</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1238,9 +1410,12 @@ document.addEventListener('click',function(e){
 });
 
 // Admin nav
-function setAdminNav(el){
+function setAdminNav(el,panelId){
   document.querySelectorAll('.admin-nav-item').forEach(i=>i.classList.remove('active'));
   el.classList.add('active');
+  document.querySelectorAll('.admin-panel').forEach(p=>p.style.display='none');
+  const panel=document.getElementById(panelId);
+  if(panel)panel.style.display='block';
 }
 
 // Auth actions
