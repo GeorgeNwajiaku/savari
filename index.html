@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Savari — Wear Your Heritage. Anywhere.</title>
-<meta name="description" content="Order custom Nigerian and African outfits online. Safari suits, kaftans, agbada, ankara and more — made by top-rated tailors and shipped to your door worldwide.">
+<meta name="description" content="Order custom African outfits online. Safari suits, kaftans, agbada, ankara and more — made by top-rated tailors and shipped to your door worldwide.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -383,7 +383,7 @@ footer{background:var(--forest-deep);padding:56px 40px 28px}
     <div class="hero-content">
       <div class="hero-tag">🌍 African Tailoring, Delivered Worldwide</div>
       <h1>Wear Your<br><em>Heritage.</em><br>Anywhere.</h1>
-      <p>Connect with skilled Nigerian and African tailors. Order custom safari suits, kaftans, agbada, and more — shipped to your door, anywhere in the world.</p>
+      <p>Connect with skilled African tailors. Order custom safari suits, kaftans, agbada, and more — shipped to your door, anywhere in the world.</p>
       <div class="hero-actions">
         <button class="btn btn-gold btn-lg" onclick="nav('catalog')">Browse Catalog</button>
         <button class="btn" style="background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.45);padding:15px 28px;font-size:16px;border-radius:10px" onclick="nav('tailors')">Meet Our Tailors</button>
@@ -868,7 +868,7 @@ footer{background:var(--forest-deep);padding:56px 40px 28px}
   <div class="meas-page">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
       <div><h3 style="font-family:'Playfair Display',serif;font-size:24px;color:var(--forest)">Your Profiles</h3><p style="font-size:14px;color:var(--muted);margin-top:4px">Save measurements for multiple family members</p></div>
-      <button class="btn btn-gold" onclick="toast('New Profile','Profile creation form opening...')">+ Add Profile</button>
+      <button class="btn btn-gold" onclick="openProfileModal()">+ Add Profile</button>
     </div>
     <div class="meas-grid">
       <div class="meas-card active-profile">
@@ -1247,6 +1247,122 @@ function setAdminNav(el){
 function doLogin(){toast('Welcome back!','Signed in successfully. Redirecting...');setTimeout(()=>nav('home'),900);}
 function doRegister(){toast('Account created!','Welcome to Savari! Let\'s set up your measurements.');setTimeout(()=>nav('measure'),950);}
 function placeOrder(){toast('Order placed! 🎉','#SAV-2852 confirmed. You\'ll receive a confirmation email shortly.');setTimeout(()=>nav('track'),1200);}
+
+// Profile modal
+function openProfileModal(){
+  const m=document.getElementById('profile-modal');
+  m.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeProfileModal(){
+  const m=document.getElementById('profile-modal');
+  m.style.display='none';
+  document.body.style.overflow='';
+}
+function saveProfile(){
+  const name=document.getElementById('pf-name').value.trim();
+  const gender=document.getElementById('pf-gender').value;
+  const chest=document.getElementById('pf-chest').value;
+  const waist=document.getElementById('pf-waist').value;
+  if(!name){
+    const el=document.getElementById('pf-name');
+    el.style.borderColor='var(--rust)';
+    el.focus();
+    return;
+  }
+  if(!gender){
+    document.getElementById('pf-gender').style.borderColor='var(--rust)';
+    return;
+  }
+  const hip=document.getElementById('pf-hip').value;
+  const shoulder=document.getElementById('pf-shoulder').value;
+  const sleeve=document.getElementById('pf-sleeve').value;
+  const length=document.getElementById('pf-length').value;
+  const rows=[
+    chest?`<div class="meas-row"><span>Chest / Bust</span><span class="mv">${chest}"</span></div>`:'',
+    waist?`<div class="meas-row"><span>Waist</span><span class="mv">${waist}"</span></div>`:'',
+    hip?`<div class="meas-row"><span>Hip</span><span class="mv">${hip}"</span></div>`:'',
+    shoulder?`<div class="meas-row"><span>Shoulder</span><span class="mv">${shoulder}"</span></div>`:'',
+    sleeve?`<div class="meas-row"><span>Sleeve</span><span class="mv">${sleeve}"</span></div>`:'',
+    length?`<div class="meas-row"><span>Body Length</span><span class="mv">${length}"</span></div>`:'',
+  ].join('');
+  const grid=document.querySelector('.meas-grid');
+  const card=document.createElement('div');
+  card.className='meas-card';
+  card.innerHTML=`
+    <div class="profile-badge" style="color:var(--muted)">Profile</div>
+    <div class="profile-name" style="color:var(--ink)">${name}</div>
+    <div style="font-size:13px;color:var(--muted);margin-top:4px">${gender} · Added today</div>
+    <div class="meas-list">${rows||'<div style="font-size:13px;color:var(--muted);padding:10px 0">No measurements entered yet.</div>'}</div>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button class="btn btn-outline btn-sm" style="flex:1" onclick="toast('Edit','Opening editor...')">Edit</button>
+      <button class="btn btn-gold btn-sm" style="flex:1" onclick="nav('order')">Order Now</button>
+    </div>`;
+  grid.appendChild(card);
+  closeProfileModal();
+  ['pf-name','pf-chest','pf-waist','pf-hip','pf-shoulder','pf-sleeve','pf-length','pf-neck','pf-inseam','pf-thigh','pf-head','pf-notes'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.value='';el.style.borderColor='';}
+  });
+  document.getElementById('pf-gender').value='';
+  document.getElementById('pf-gender').style.borderColor='';
+  toast('Profile saved!',`"${name}" has been added to your profiles.`);
+}
 </script>
+
+<!-- ADD PROFILE MODAL -->
+<div id="profile-modal" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(15,34,24,.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeProfileModal()">
+  <div style="background:var(--white);border-radius:16px;padding:36px;width:100%;max-width:520px;box-shadow:0 32px 100px rgba(0,0,0,.35);position:relative;max-height:90vh;overflow-y:auto">
+    <button onclick="closeProfileModal()" style="position:absolute;top:16px;right:16px;background:var(--cream);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:15px;color:var(--muted);line-height:1">&#x2715;</button>
+    <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--forest);margin-bottom:6px">Add Measurement Profile</div>
+    <div style="font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6">Save measurements for yourself or a family member. Add as many profiles as you need.</div>
+    <div class="form-group">
+      <label>Profile Name <em style="font-weight:400;font-style:normal;color:var(--muted)">(e.g. Me, Spouse, Dad, Child)</em></label>
+      <input type="text" id="pf-name" placeholder="e.g. Me — David">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Sizing Type</label>
+        <div class="select-wrap"><select id="pf-gender"><option value="">Select type</option><option>Men's sizing</option><option>Women's sizing</option><option>Child's sizing</option></select></div>
+      </div>
+      <div class="form-group">
+        <label>Unit</label>
+        <div class="select-wrap"><select id="pf-unit"><option>Inches</option><option>Centimetres</option></select></div>
+      </div>
+    </div>
+    <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.9px;margin:4px 0 16px">Body Measurements</div>
+    <div class="form-row">
+      <div class="form-group"><label>Chest / Bust</label><input type="number" id="pf-chest" placeholder="e.g. 40"></div>
+      <div class="form-group"><label>Waist</label><input type="number" id="pf-waist" placeholder="e.g. 34"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Hip / Seat</label><input type="number" id="pf-hip" placeholder="e.g. 41"></div>
+      <div class="form-group"><label>Shoulder Width</label><input type="number" id="pf-shoulder" placeholder="e.g. 17"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Sleeve Length</label><input type="number" id="pf-sleeve" placeholder="e.g. 25"></div>
+      <div class="form-group"><label>Body Length</label><input type="number" id="pf-length" placeholder="e.g. 29"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Neck</label><input type="number" id="pf-neck" placeholder="e.g. 16"></div>
+      <div class="form-group"><label>Inseam</label><input type="number" id="pf-inseam" placeholder="e.g. 30"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Thigh <em style="font-weight:400;font-style:normal;color:var(--muted)">(optional)</em></label><input type="number" id="pf-thigh" placeholder="e.g. 24"></div>
+      <div class="form-group"><label>Head Circumference <em style="font-weight:400;font-style:normal;color:var(--muted)">(for caps)</em></label><input type="number" id="pf-head" placeholder="e.g. 22"></div>
+    </div>
+    <div class="form-group">
+      <label>Notes <em style="font-weight:400;font-style:normal;color:var(--muted)">(optional)</em></label>
+      <textarea id="pf-notes" placeholder="Fitting preferences or special instructions for the tailor..." style="min-height:70px"></textarea>
+    </div>
+    <div style="background:var(--gold-lt);border:1px solid rgba(200,146,42,.3);border-radius:var(--rs);padding:12px 14px;font-size:13px;color:var(--gold-dk);margin-bottom:22px;line-height:1.6">
+      Not sure how to measure? <span style="font-weight:700;cursor:pointer;text-decoration:underline" onclick="closeProfileModal();nav('measure')">View the measurement guide &#x2192;</span>
+    </div>
+    <div style="display:flex;gap:12px">
+      <button class="btn btn-outline" style="flex:1;padding:13px" onclick="closeProfileModal()">Cancel</button>
+      <button class="btn btn-gold" style="flex:2;padding:13px;font-size:15px" onclick="saveProfile()">Save Profile</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
